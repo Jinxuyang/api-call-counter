@@ -1,13 +1,9 @@
-package com.fehead.counter.config;
+package com.fehead.counter.open.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+
 /**
  * @Author Verge
  * @Date 2020/11/13 20:01
@@ -24,16 +21,27 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 public class RedisConfig {
-    String host = "47.93.200.138";
 
+    @Value("${fehead.api-call-counter.redis.host}")
+    String host;
+    /*@Value("${fehead.api-call-counter.redis.password}")
+    String password;
+    @Value("${fehead.api-call-counter.redis.port}")
+    int port;
+    @Value("${fehead.api-call-counter.redis.database}")
+    int database;*/
     /**
      * 设置redis连接
      * @return
      */
     @Bean
+    //@ConfigurationProperties(prefix = "fehead.api-call-counter.redis.host")
     public LettuceConnectionFactory getLettuceConnectionFactory(){
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
         redisConfig.setHostName(host);
+        //redisConfig.setDatabase(database);
+        //redisConfig.setPort(port);
+
         return new LettuceConnectionFactory(redisConfig);
     }
 
@@ -50,7 +58,8 @@ public class RedisConfig {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        //om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();

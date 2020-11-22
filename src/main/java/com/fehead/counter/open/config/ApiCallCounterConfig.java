@@ -1,5 +1,6 @@
-package com.fehead.counter.config;
+package com.fehead.counter.open.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2020/11/13 18:59
  * @Version 1.0
  */
+@EnableConfigurationProperties
 @ComponentScan({"com.fehead.counter"})
 @Configuration
 public class ApiCallCounterConfig {
