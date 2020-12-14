@@ -6,6 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,17 @@ public class AspectServiceImpl implements AspectService {
     @Value("${spring.application.name}")
     String applicationName;
 
+    @Pointcut("execution(* *..controller..*.*(..))")
+    private void inController() {}
+
+    /*@Pointcut("execution(* *..service..*.*(..))")
+    private void inService() {}*/
+
+    @Pointcut("@annotation(com.fehead.counter.open.annotation.SetPointCut)")
+    private void withSetPointCut() {}
+
     @Override
-    @After("execution(* *.*.*.controller..*.*(..))")
+    @After("inController() || withSetPointCut()")
     public void afterCall(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
@@ -34,7 +44,7 @@ public class AspectServiceImpl implements AspectService {
     }
 
     @Override
-    @AfterThrowing("execution(* *.*.*.controller..*.*(..))")
+    @AfterThrowing("inController() || withSetPointCut() ")
     public void afterThrowException(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
