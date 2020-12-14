@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,24 +25,27 @@ public class RedisConfig {
 
     @Value("${fehead.api-call-counter.redis.host}")
     String host;
-    /*@Value("${fehead.api-call-counter.redis.password}")
+    @Value("${fehead.api-call-counter.redis.password:null}")
     String password;
-    @Value("${fehead.api-call-counter.redis.port}")
+    @Value("${fehead.api-call-counter.redis.port:6379}")
     int port;
-    @Value("${fehead.api-call-counter.redis.database}")
-    int database;*/
+    @Value("${fehead.api-call-counter.redis.database:0}")
+    int database;
     /**
      * 设置redis连接
      * @return
      */
     @Bean
-    //@ConfigurationProperties(prefix = "fehead.api-call-counter.redis.host")
     public LettuceConnectionFactory getLettuceConnectionFactory(){
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
         redisConfig.setHostName(host);
-        //redisConfig.setDatabase(database);
-        //redisConfig.setPort(port);
-
+        redisConfig.setDatabase(database);
+        redisConfig.setPort(port);
+        if (!password.equals("null")){
+            System.out.println("有密码： "+password);
+            RedisPassword redisPassword = RedisPassword.of(password);
+            redisConfig.setPassword(redisPassword);
+        }
         return new LettuceConnectionFactory(redisConfig);
     }
 

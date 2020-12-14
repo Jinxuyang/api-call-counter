@@ -25,7 +25,7 @@ public class AspectServiceImpl implements AspectService {
     @Value("${spring.application.name}")
     String applicationName;
 
-    @Pointcut("execution(* *..config..*.*(..))")
+    @Pointcut("execution(* *..controller..*.*(..))")
     private void inController() {}
 
     /*@Pointcut("execution(* *..service..*.*(..))")
