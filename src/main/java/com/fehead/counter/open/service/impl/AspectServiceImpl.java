@@ -25,7 +25,7 @@ public class AspectServiceImpl implements AspectService {
     @Value("${spring.application.name}")
     String applicationName;
 
-    @Pointcut("execution(* *..controller..*.*(..))")
+    @Pointcut("execution(* *..config..*.*(..))")
     private void inController() {}
 
     /*@Pointcut("execution(* *..service..*.*(..))")
@@ -34,8 +34,11 @@ public class AspectServiceImpl implements AspectService {
     @Pointcut("@annotation(com.fehead.counter.open.annotation.SetPointCut)")
     private void withSetPointCut() {}
 
+    @Pointcut("!@annotation(com.fehead.counter.open.annotation.NotSetPointCut)")
+    private void withoutSetPointCut() {}
+
     @Override
-    @After("inController() || withSetPointCut()")
+    @After("(inController() || withSetPointCut()) && withoutSetPointCut()")
     public void afterCall(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
@@ -44,7 +47,7 @@ public class AspectServiceImpl implements AspectService {
     }
 
     @Override
-    @AfterThrowing("inController() || withSetPointCut() ")
+    @AfterThrowing("(inController() || withSetPointCut()) && withoutSetPointCut()")
     public void afterThrowException(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
