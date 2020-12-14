@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 标记该方法，统计其调用次数
  * @Author Verge
  * @Date 2020/12/14 15:34
  * @Version 1.0
