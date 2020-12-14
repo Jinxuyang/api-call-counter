@@ -17,8 +17,8 @@ public class FeheadProperties {
     public static class Redis{
         private String host;
         private String password;
-        private int port;
-        private int database;
+        private int port = 6379;
+        private int database = 0;
     }
 
     private Redis redis;
