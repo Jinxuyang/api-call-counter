@@ -35,10 +35,10 @@ public class AspectServiceImpl implements AspectService {
     private void withSetPointCut() {}
 
     @Pointcut("!@annotation(com.fehead.counter.open.annotation.NotSetPointCut)")
-    private void withoutSetPointCut() {}
+    private void withoutNotSetPointCut() {}
 
     @Override
-    @After("(inController() || withSetPointCut()) && withoutSetPointCut()")
+    @After("(inController() || withSetPointCut()) && withoutNotSetPointCut()")
     public void afterCall(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
@@ -47,7 +47,7 @@ public class AspectServiceImpl implements AspectService {
     }
 
     @Override
-    @AfterThrowing("(inController() || withSetPointCut()) && withoutSetPointCut()")
+    @AfterThrowing("(inController() || withSetPointCut()) && withoutNotSetPointCut()")
     public void afterThrowException(JoinPoint point) {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
