@@ -1,4 +1,4 @@
-package com.fehead.counter.open.config;
+package com.fehead.open.counter.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

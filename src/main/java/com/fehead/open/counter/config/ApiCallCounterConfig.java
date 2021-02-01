@@ -1,4 +1,4 @@
-package com.fehead.counter.open.config;
+package com.fehead.open.counter.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;

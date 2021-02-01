@@ -1,7 +1,8 @@
-package com.fehead.counter.open.service.impl;
+package com.fehead.open.counter.service.impl;
 
-import com.fehead.counter.open.service.AspectService;
-import com.fehead.counter.open.utils.RedisUtils;
+
+import com.fehead.open.counter.service.AspectService;
+import com.fehead.open.counter.utils.RedisUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -28,13 +29,13 @@ public class AspectServiceImpl implements AspectService {
     @Pointcut("execution(* *..controller..*.*(..))")
     private void inController() {}
 
-    /*@Pointcut("execution(* *..service..*.*(..))")
-    private void inService() {}*/
+    /* @Pointcut("execution(* *..service..*.*(..))")
+    private void inService() {} */
 
-    @Pointcut("@annotation(com.fehead.counter.open.annotation.SetPointCut)")
+    @Pointcut("@annotation(com.fehead.open.counter.annotation.SetPointCut)")
     private void withSetPointCut() {}
 
-    @Pointcut("!@annotation(com.fehead.counter.open.annotation.NotSetPointCut)")
+    @Pointcut("!@annotation(com.fehead.open.counter.annotation.NotSetPointCut)")
     private void withoutNotSetPointCut() {}
 
     @Override

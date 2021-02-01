@@ -1,4 +1,4 @@
-package com.fehead.counter.open.properties;
+package com.fehead.open.counter.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

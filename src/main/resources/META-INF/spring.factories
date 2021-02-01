@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.fehead.counter.open.config.ApiCallCounterConfig
+com.fehead.open.counter.config.ApiCallCounterConfig

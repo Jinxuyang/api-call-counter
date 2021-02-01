@@ -1,4 +1,4 @@
-package com.fehead.counter.open.utils;
+package com.fehead.open.counter.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -1,4 +1,4 @@
-package com.fehead.counter.open.annotation;
+package com.fehead.open.counter.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
